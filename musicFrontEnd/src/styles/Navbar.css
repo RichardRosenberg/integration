@@ -1,0 +1,57 @@
+nav {
+    width: 100%;
+    color: white;
+    padding: 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    width: 15rem;
+    position: fixed;
+    top: 0;
+    left: 7rem;
+}
+
+.nav-links {
+    display: flex;
+    padding-right: 46rem;
+}
+
+nav ul li {
+    list-style: none;
+    margin: 6rem 1rem;
+    padding-right: 1rem;
+    font-size: 2rem;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    transition: color 1s;
+}
+
+nav ul li a:hover {
+    color: orange;
+}
+
+.btn {
+    background: white;
+    color: #212121;
+    border: none;
+    padding: 0.8rem 1.3rem;
+    font-size: 1.3rem;
+    border-radius: 4rem;
+    cursor: pointer;
+    position: fixed;
+    top: 6.5rem;
+    right: 10rem;
+}
+
+.btn:hover {
+    color: orange;
+}
