@@ -1,0 +1,21 @@
+.register-form button[type="submit"] {
+    width: 16rem;
+    padding: 0.5rem;
+    margin-top: 1rem;
+  }
+  
+  .error,
+  .success {
+    padding: 0.5rem;
+    max-width: 15rem;
+  }
+  
+  .error {
+    color: red;
+  }
+  
+  .success {
+    color: black;
+  }
+  
+  

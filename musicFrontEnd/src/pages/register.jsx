@@ -1,47 +1,53 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import '../styles/register.css';
 
 function Register() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const validatePassword = (value) => {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,14}$/;
+    return regex.test(value);
+  };
+
+  const validateUsername = (value) => {
+    const regex = /^[a-zA-Z0-9]{1,14}$/;
+    return regex.test(value);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    //client-side validation
-    if (!/^[a-zA-Z0-9]{1,10}$/.test(username)) {
-      setError('Username must be letters or numbers and 10 characters max.');
-      return;
-    }
-    if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{7,12}/.test(password)) {
-      setError('Password must contain at least one uppercase letter, one lowercase letter, one number, and be 7-12 characters long.');
+    if (!validatePassword(password)) {
+      setError('Password must contain at least 1 lowercase letter, 1 uppercase letter, 1 number, and be 8-14 characters long.');
       return;
     }
 
-    // //backend validation
-    // try {
-    //   const usernameResponse = await axios.get(`http://localhost:8081/check-username/${username}`);
-    //   if (usernameResponse.data.exists) {
-    //     setError('Username is already taken. Please try another.');
-    //     return;
-    //   }
-    // } catch (error) {
-    //   console.error('Error checking username availability:', error);
-    //   setError('An error occurred. Please try again.');
-    //   return;
-    // }
+    if (!validateUsername(username)) {
+      setError('Username must be 1-14 characters long and contain only letters and numbers.');
+      return;
+    }
 
-    //if passed validation, proceed with registration
     try {
+      const usernameResponse = await axios.get(`http://localhost:8081/check-username/${username}`);
+  
+      if (usernameResponse.data) {
+        setError('Username is already taken. Please try another.');
+        return;
+      }
+
       const response = await axios.post('http://localhost:8081/register/user', {
         username,
         password,
         role: 'ROLE_STUDENT'
       });
-      console.log('User registered:', response.data);
+      setSuccessMessage('Registration successful! You can now login.');
+      setUsername('');
+      setPassword('');
     } catch (error) {
-      console.error('Error registering user:', error);
       setError('An error occurred. Please try again.');
     }
   };
@@ -57,12 +63,14 @@ function Register() {
               <label>Username:</label>
               <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
             </div>
+            <br />
             <div>
-              <label>Password:</label>
+              <label>Password: </label>
               <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>
             <button type="submit">Register</button>
             {error && <div className="error">{error}</div>}
+            {successMessage && <div className="success">{successMessage}</div>}
           </form>
         </div>
       </div>
