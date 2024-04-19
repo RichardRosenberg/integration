@@ -13,6 +13,7 @@ Group 1
 7. Navigate to the vite localhost link
 8. Adde by me
 9- added in the f-branch
+10 - added intentional
   
 
    You should be able to add lessons to the database and see them in phpmyadmin as well as on the react site
