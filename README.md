@@ -14,6 +14,6 @@ Group 1
 8. Adde by me
 9- added in the f-branch
 10 - added intentional
-  
+  More changes here--
 11- test
    You should be able to add lessons to the database and see them in phpmyadmin as well as on the react site
